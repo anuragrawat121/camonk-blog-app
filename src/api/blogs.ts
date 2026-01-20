@@ -40,3 +40,13 @@ export const createBlog = async (blog: Omit<Blog, "id">): Promise<Blog> => {
 
   return res.json();
 };
+// DELETE — Delete Blog by ID
+export const deleteBlog = async (id: number): Promise<void> => {
+  const res = await fetch(`${BASE_URL}/blogs/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to delete blog");
+  }
+};
