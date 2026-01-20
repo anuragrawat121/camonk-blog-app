@@ -66,30 +66,7 @@ function BlogDetail({ blogId }: BlogDetailProps) {
     }
   };
 
-  if (!blogId) {
-    return (
-      <div className="flex h-full flex-col items-center justify-center space-y-4 rounded-xl border border-dashed border-gray-200 bg-gray-50/50 p-12 text-center text-gray-500">
-        <div className="rounded-full bg-gray-100 p-3">
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-            />
-          </svg>
-        </div>
-        <p className="text-lg font-medium flex-1">Select an article to read</p>
-      </div>
-    );
-  }
-
-  if (isLoading) {
+  if (isLoading || !blogId) {
     return <div className="h-96 animate-pulse rounded-xl bg-gray-100"></div>;
   }
 

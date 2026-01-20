@@ -4,10 +4,26 @@ import CreateBlogForm from "@/components/CreateBlogForm";
 import Navbar from "@/components/Navbar";
 import BlogHeader from "@/components/BlogHeader";
 import Footer from "@/components/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getBlogs } from "@/api/blogs";
+import { type Blog } from "@/types/blog";
 
 function App() {
   const [selectedBlogId, setSelectedBlogId] = useState<number | null>(null);
+
+  // Fetch blogs to auto-select the first one
+  const { data: blogs } = useQuery<Blog[]>({
+    queryKey: ["blogs"],
+    queryFn: getBlogs,
+  });
+
+  // Auto-select the first blog when blogs are loaded
+  useEffect(() => {
+    if (blogs && blogs.length > 0 && selectedBlogId === null) {
+      setSelectedBlogId(blogs[0].id);
+    }
+  }, [blogs, selectedBlogId]);
 
   return (
     <div className="min-h-screen bg-gray-50">
